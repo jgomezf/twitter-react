@@ -1,6 +1,6 @@
-import Tweet from 'components/Tweet';
+import Tweet from '../components/Tweet';
 import React, { useEffect, useState } from 'react';
-import API from 'api';
+import API from '../api';
 
 function List() {
   const [data, setData] = useState([]);
