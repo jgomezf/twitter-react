@@ -1,46 +1,51 @@
 import React from 'react';
 
+import { Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
-import API from '../api';
 
-export default function AuthForm() {
-  async function onSubmit(event) {
-    event.preventDefault();
-    const { username, password } = event.target.elements;
-    try {
-      const data = await API.login({
-        username: username.value,
-        password: password.value,
-      });
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
+export default function SignUpForm() {
   return (
     <>
-      <Typography variant="h4">Login</Typography>
-      <form onSubmit={onSubmit}>
+      <Typography variant="h4">SingUp</Typography>
+      <form>
+        <TextField
+          name="name"
+          required
+          label="Name"
+          margin="normal"
+          fullWidth
+        />
         <TextField
           name="username"
           required
-          id="standard-required"
           label="Username"
           margin="normal"
           fullWidth
         />
         <TextField
+          name="email"
+          required
+          label="Email"
+          margin="normal"
+          type="email"
+          fullWidth
+        />
+        <TextField
           name="password"
           required
-          id="standard-password-input"
           label="Password"
-          type="password"
           margin="normal"
+          type="password"
           fullWidth
-          autoComplete="current-password"
+        />
+        <TextField
+          name="passwordConfirmation"
+          required
+          label="Password Confirmation"
+          margin="normal"
+          type="password"
+          fullWidth
         />
         <Button
           variant="contained"
@@ -50,7 +55,7 @@ export default function AuthForm() {
           fullWidth
           type="submit"
         >
-          Login
+          Create User
         </Button>
       </form>
     </>

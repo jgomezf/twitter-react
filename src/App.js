@@ -17,6 +17,7 @@ import {
 
 const Login = React.lazy(() => import('./pages/Login'));
 const Home = React.lazy(() => import('./pages/Home'));
+const SignUp = React.lazy(() => import('./pages/SignUp'));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,9 @@ function App() {
           <ListItem component={NavLink} to="/login" button>
             Login
           </ListItem>
+          <ListItem component={NavLink} to="/users" button>
+            SignUp
+          </ListItem>
         </Toolbar>
       </AppBar>
       <Container maxWidth="sm">
@@ -60,6 +64,9 @@ function App() {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/users">
+              <SignUp />
             </Route>
             <Route path="/">
               <Home />
