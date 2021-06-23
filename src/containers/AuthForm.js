@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
 import API from '../api';
+import { setSession } from '../utils/auth';
 
 export default function AuthForm() {
   const history = useHistory();
@@ -18,7 +19,9 @@ export default function AuthForm() {
       });
       console.log(data);
       const { token } = data;
-      localStorage.setItem('token', token);
+      setSession({
+        data: token,
+      });
       history.push('/');
     } catch (error) {
       console.error(error);
