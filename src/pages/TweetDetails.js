@@ -24,14 +24,13 @@ export default function TweetDetails() {
     }
   }, [id]);
 
-  const date = new Date(tweet.createdAt).toDateString();
   return (
     tweet && (
       <Tweet
         name={tweet.user.name}
         username={tweet.user.username}
         content={tweet.content}
-        date={date}
+        date={new Date(tweet.createdAt).toDateString()}
       />
     )
   );
