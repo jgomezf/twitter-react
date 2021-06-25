@@ -19,7 +19,6 @@ export default function AuthForm() {
         username: username.value,
         password: password.value,
       });
-      console.log(data);
       const { token } = data;
       setSession({ data: token });
       setUser(data);
