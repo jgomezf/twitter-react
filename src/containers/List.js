@@ -1,8 +1,13 @@
-import Tweet from '../components/Tweet';
+import React, { useEffect, useState } from 'react';
+import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 
-import React, { useEffect, useState } from 'react';
+import Tweet from '../components/Tweet';
 import API from '../api';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function List() {
   const [data, setData] = useState([]);
@@ -33,7 +38,7 @@ function List() {
 
   return (
     <>
-      {error && <p>{error}</p>}
+      {error && <Alert severity="error">{error}</Alert>}
       {data.map(({ id, user, date, content }) => {
         return (
           <div
