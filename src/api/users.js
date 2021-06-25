@@ -1,4 +1,5 @@
 import { BASE_URL } from '../const';
+import http from '../utils/http';
 
 export async function login({ username = '', password = '' }) {
   const response = await fetch(`${BASE_URL}/users/login`, {
