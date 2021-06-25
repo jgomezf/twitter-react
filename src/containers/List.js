@@ -6,6 +6,8 @@ import API from '../api';
 
 function List() {
   const [data, setData] = useState([]);
+  const [error, setError] = useState('');
+
   const history = useHistory();
 
   async function loadList() {
@@ -15,6 +17,7 @@ function List() {
         setData(data);
       }
     } catch (error) {
+      setError(error.message);
       console.error(error);
     }
   }
@@ -30,20 +33,20 @@ function List() {
 
   return (
     <>
-      {data.map((item) => {
-        const date = new Date(item.createdAt).toDateString();
+      {error && <p>{error}</p>}
+      {data.map(({ id, user, date, content }) => {
         return (
           <div
             onClick={() => {
-              displayTweet({ id: item._id });
+              displayTweet({ id });
             }}
-            key={item._id}
+            key={id}
           >
             <Tweet
-              name={item.user.name}
-              username={item.user.username}
+              name={user.name}
+              username={user.username}
               date={date}
-              content={item.content}
+              content={content}
             />
           </div>
         );
