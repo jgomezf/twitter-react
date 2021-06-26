@@ -17,6 +17,7 @@ import {
   NavLink,
 } from 'react-router-dom';
 import TweetDetails from './pages/TweetDetails';
+import Profile from './pages/Profile';
 import ProtectedRoute from './containers/ProtectedRoute';
 import UserBar from './containers/UserBar';
 import { UserProvider } from './containers/UserContext';
@@ -78,7 +79,7 @@ function App() {
                   React Twitter
                 </Typography>
               </ListItem>
-              <UserBar />              
+              <UserBar />
             </Toolbar>
           </AppBar>
 
@@ -88,6 +89,9 @@ function App() {
                 <Route path="/login">
                   <Login />
                 </Route>
+                <ProtectedRoute path="/profile/:id">
+                  <Profile />
+                </ProtectedRoute>
                 <ProtectedRoute path="/tweets/:id">
                   <TweetDetails />
                 </ProtectedRoute>
