@@ -41,12 +41,7 @@ function List() {
       {error && <Alert severity="error">{error}</Alert>}
       {data.map(({ id, user, date, content }) => {
         return (
-          <div
-            onClick={() => {
-              displayTweet({ id });
-            }}
-            key={id}
-          >
+          <div onClick={() => displayTweet({ id })} key={id}>
             <Tweet
               name={user.name}
               username={user.username}

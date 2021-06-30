@@ -43,7 +43,7 @@ export default function Tweet({
             <MoreVertIcon />
           </IconButton>
         }
-        title={username}
+        title={`${name} - @${username}`}
         subheader={date}
       />
       <CardContent>

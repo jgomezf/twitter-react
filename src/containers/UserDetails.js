@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Typography } from '@material-ui/core';
+import React from 'react';
+import { Button, Typography } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import API from '../api';
+import { useHistory } from 'react-router-dom';
+import useUser from './useUser';
 
 function CalendarIcon(props) {
   return (
@@ -34,41 +35,30 @@ function EmailIcon(props) {
 
 export default function UserDetails() {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
+  const history = useHistory();
+  const { user } = useUser({ id });
 
-  async function loadUser() {
-    try {
-      const data = await API.getUser({ id });
-
-      if (data) {
-        setUser(data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  function editProfile() {
+    history.push(`/profile/${id}/edit`);
   }
-
-  useEffect(() => {
-    if (id !== undefined) {
-      loadUser();
-    }
-  }, [id]);
 
   return (
     user && (
       <>
-        <Typography variant="h4">{user.name}</Typography>
+        <Typography variant="h4">Profile</Typography>
+        <Typography variant="h6">{user.name}</Typography>
         <form>
           <Typography variant="subtitle2" gutterBottom>
             @{user.username}
           </Typography>
           <p>
-            <EmailIcon /> {user.email}
-          </p>
-          <p>
-            <CalendarIcon /> Se unió en {user.dateCreatedAt}
+            <EmailIcon /> {user.email} <CalendarIcon /> Se unió en{' '}
+            {user.dateCreatedAt}
           </p>
         </form>
+        <Button variant="contained" color="primary" onClick={editProfile}>
+          Edit profile
+        </Button>
       </>
     )
   );
