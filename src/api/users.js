@@ -8,6 +8,7 @@ function formatUser(user) {
     locale: es,
   })} de ${format(new Date(user.createdAt), 'yyyy')}`;
 
+  
   return {
     ...user,
     id: user._id,
