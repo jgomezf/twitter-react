@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
-
 import Tweet from '../components/Tweet';
 import API from '../api';
+import UserContext from '../containers/UserContext';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -12,6 +12,9 @@ function Alert(props) {
 function List() {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
+  const {
+    user: { id: userId },
+  } = useContext(UserContext);
 
   const history = useHistory();
 
@@ -37,6 +40,7 @@ function List() {
     try {
       await API.likeTweet({
         tweetId: id,
+        userId: userId,
       });
       const tweet = await API.getTweet({ id });
       const newList = data.map((item) => {
@@ -74,9 +78,10 @@ function List() {
               username={user.username}
               date={date}
               content={content}
-              likes={likes.length}
+              likes={likes.filter((x) => x.like === true).length}
               commentsCount={comments.length}
               onLike={onLike}
+              liked={(() => likes.find((l) => l.user === userId && l.like))()}
             />
           </div>
         );

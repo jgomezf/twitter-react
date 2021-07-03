@@ -34,8 +34,9 @@ export async function createComment({ tweetId, comment }) {
   });
 }
 
-export async function likeTweet({ tweetId }) {
+export async function likeTweet({ tweetId, userId }) {
   return await http.post(`/tweets/likes/`, {
     tweetId,
+    userId,
   });
 }

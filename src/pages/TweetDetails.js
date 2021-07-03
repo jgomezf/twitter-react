@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useContext, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Tweet from '../components/Tweet';
 import Loader from '../components/Loader';
 import API from '../api';
+import UserContext from '../containers/UserContext';
 
 const useStyles = makeStyles((theme) => ({
   spacer: {
@@ -23,6 +24,9 @@ export default function TweetDetails() {
   const classes = useStyles();
   const { id } = useParams();
   const [tweet, setTweet] = useState(null);
+  const {
+    user: { id: userId },
+  } = useContext(UserContext);
 
   const loadTweet = useCallback(async () => {
     try {
@@ -65,6 +69,7 @@ export default function TweetDetails() {
     try {
       await API.likeTweet({
         tweetId: id,
+        userId: userId,
       });
       await loadTweet();
     } catch (error) {
@@ -97,8 +102,9 @@ export default function TweetDetails() {
         content={tweet.content}
         date={tweet.date}
         commentsCount={tweet.comments.length}
-        likes={tweet.likes}
+        likes={tweet.likes.filter((x) => x.like === true).length}
         onLike={onLike}
+        liked={(() => tweet.likes.find((l) => l.user === userId && l.like))()}
       />
       <form onSubmit={onComment}>
         <div className={classes.spacer} />

@@ -31,6 +31,7 @@ export default function Tweet({
   commentsCount = 0,
   likes = 0,
   onLike = () => {},
+  liked = false,
 }) {
   const classes = useStyles();
 
@@ -62,7 +63,12 @@ export default function Tweet({
             onLike(event, id);
           }}
         >
-          {likes} <FavoriteIcon />
+          {likes}{' '}
+          {liked ? (
+            <FavoriteIcon style={{ color: '#1da1f2' }} />
+          ) : (
+            <FavoriteIcon />
+          )}
         </IconButton>
         {commentsCount === 0 ? (
           <ChatBubbleOutlineIcon />
