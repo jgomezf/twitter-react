@@ -8,7 +8,6 @@ function formatUser(user) {
     locale: es,
   })} de ${format(new Date(user.createdAt), 'yyyy')}`;
 
-  
   return {
     ...user,
     id: user._id,
@@ -45,6 +44,24 @@ export async function updateUser({
   passwordConfirmation,
 }) {
   const response = await http.put(`/users/${id}`, {
+    name,
+    username,
+    email,
+    password,
+    passwordConfirmation,
+  });
+  const { data } = response.data;
+  return formatUser(data);
+}
+
+export async function createUser({
+  name,
+  username,
+  email,
+  password,
+  passwordConfirmation,
+}) {
+  const response = await http.post(`/users`, {
     name,
     username,
     email,

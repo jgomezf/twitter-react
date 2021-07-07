@@ -27,10 +27,11 @@ export async function getTweet({ id }) {
   return formatTweet(data);
 }
 
-export async function createComment({ tweetId, comment }) {
+export async function createComment({ tweetId, comment, userId }) {
   return await http.post(`/tweets/comments`, {
     tweetId,
     comment,
+    userId,
   });
 }
 

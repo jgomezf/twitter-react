@@ -3,12 +3,39 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import API from '../api';
+import { useHistory } from 'react-router-dom';
 
 export default function SignUpForm() {
+  const history = useHistory();
+
+  async function create(event) {
+    event.preventDefault();
+    const { name, username, email, password, passwordConfirmation } =
+      event.target.elements;
+
+    try {
+      if (password.value !== passwordConfirmation.value) {
+        return;
+      }
+
+      const data = await API.createUser({
+        name: name.value,
+        username: username.value,
+        email: email.value,
+        password: password.value,
+        passwordConfirmation: passwordConfirmation.value,
+      });
+
+      if (data) {
+        history.push(`/login`);
+      }
+    } catch (error) {}
+  }
   return (
     <>
       <Typography variant="h4">SingUp</Typography>
-      <form>
+      <form autoComplete="off" onSubmit={create}>
         <TextField
           name="name"
           required
@@ -47,14 +74,7 @@ export default function SignUpForm() {
           type="password"
           fullWidth
         />
-        <Button
-          variant="contained"
-          size="medium"
-          color="primary"
-          margin="normal"
-          fullWidth
-          type="submit"
-        >
+        <Button variant="contained" color="primary" type="submit" fullWidth>
           Create User
         </Button>
       </form>

@@ -38,16 +38,6 @@ export default function TweetDetails() {
       console.error(error);
     }
   }, [id]);
-  // async function loadTweet() {
-  //   try {
-  //     const data = await API.getTweet({ id });
-  //     if (data) {
-  //       setTweet(data);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   async function onComment(event) {
     event.preventDefault();
@@ -57,6 +47,7 @@ export default function TweetDetails() {
       await API.createComment({
         tweetId: id,
         comment: comment.value,
+        userId: userId,
       });
       await loadTweet();
       comment.value = '';
