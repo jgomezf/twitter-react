@@ -34,11 +34,6 @@ instance.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    // if (response.data.message === 'ok') {
-    //   return Promise.resolve(response.data.data);
-    // } else {
-    //   return Promise.reject(response.data);
-    // }
     return response;
   },
   function (error) {
@@ -46,7 +41,8 @@ instance.interceptors.response.use(
     // Do something with response error
     if (error.response.status === 401) {
       clearSession();
-      //TODO: fix redirect
+      // TODO: Fix redirect
+      document.location = '/login';
     }
     return Promise.reject(error);
   }

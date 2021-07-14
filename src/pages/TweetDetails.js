@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import Tweet from '../components/Tweet';
 import Loader from '../components/Loader';
 import API from '../api';
-import UserContext from '../containers/UserContext';
 
 const useStyles = makeStyles((theme) => ({
   spacer: {

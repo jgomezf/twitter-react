@@ -18,7 +18,6 @@ import {
 } from 'react-router-dom';
 import ProtectedRoute from './containers/ProtectedRoute';
 import UserBar from './containers/UserBar';
-import { UserProvider } from './containers/UserContext';
 
 const Login = React.lazy(() => import('./pages/Login'));
 const Home = React.lazy(() => import('./pages/Home'));
@@ -61,7 +60,6 @@ function App() {
   const classes = useStyles();
 
   return (
-    <UserProvider>
       <Router>
         <ThemeProvider theme={theme}>
           <AppBar position="static">
@@ -110,7 +108,6 @@ function App() {
           </Container>
         </ThemeProvider>
       </Router>
-    </UserProvider>
   );
 }
 export default App;
