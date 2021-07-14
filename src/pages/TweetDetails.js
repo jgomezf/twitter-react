@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Tweet from '../components/Tweet';
 import Loader from '../components/Loader';
 import API from '../api';
+import { useStore } from '../store/Store';
 
 const useStyles = makeStyles((theme) => ({
   spacer: {
@@ -24,8 +25,10 @@ export default function TweetDetails() {
   const { id } = useParams();
   const [tweet, setTweet] = useState(null);
   const {
-    user: { id: userId },
-  } = useContext(UserContext);
+    selectors: {
+      user: { id: userId },
+    },
+  } = useStore();
 
   const loadTweet = useCallback(async () => {
     try {

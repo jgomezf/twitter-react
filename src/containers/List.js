@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import Tweet from '../components/Tweet';
 import API from '../api';
-import UserContext from '../containers/UserContext';
+import { useStore } from '../store/Store';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -13,8 +13,10 @@ function List() {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const {
-    user: { id: userId },
-  } = useContext(UserContext);
+    selectors: {
+      user: { id: userId },
+    },
+  } = useStore();
 
   const history = useHistory();
 
