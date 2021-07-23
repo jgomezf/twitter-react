@@ -41,3 +41,11 @@ export async function likeTweet({ tweetId, userId }) {
     userId,
   });
 }
+
+export async function createTweet({ content }) {
+  const response = await http.post('/tweets', {
+    content,
+  });
+  const data = response.data;
+  return formatTweet(data);
+}
